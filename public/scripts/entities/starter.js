@@ -4,10 +4,14 @@ class Starter extends Denizen {
     super(options);
     this.imageUri = '/images/volcano.jpg';
     this.position.y += this.height;
+    this.imgTimer = 0;
   }
 
   update(t) {
-    // no physics for Starter
+    this.imgTimer = Math.max(0, this.imgTimer-=PHYSICS_TICK_SIZE_S);
+    if (this.imgTimer === 0) {
+      this.imageUri = '/images/volcano.jpg';
+    }
   }
 
   onClick(event) {
@@ -19,5 +23,7 @@ class Starter extends Denizen {
       velocity: new Vector(xVel, yVel),
       type: this.tank.getRandomSpecies(),
     });
+    this.imageUri = '/images/explosion.png';
+    this.imgTimer = 0.15;
   }
 }
